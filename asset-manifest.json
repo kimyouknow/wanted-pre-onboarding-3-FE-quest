@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/kimyouknow/wanted-pre-onboarding-3-FE-quest/static/css/main.71201ee5.css",
-    "main.js": "/kimyouknow/wanted-pre-onboarding-3-FE-quest/static/js/main.41c33733.js",
-    "index.html": "/kimyouknow/wanted-pre-onboarding-3-FE-quest/index.html",
-    "main.71201ee5.css.map": "/kimyouknow/wanted-pre-onboarding-3-FE-quest/static/css/main.71201ee5.css.map",
-    "main.41c33733.js.map": "/kimyouknow/wanted-pre-onboarding-3-FE-quest/static/js/main.41c33733.js.map"
+    "main.css": "/static/css/main.71201ee5.css",
+    "main.js": "/static/js/main.41c33733.js",
+    "index.html": "/index.html",
+    "main.71201ee5.css.map": "/static/css/main.71201ee5.css.map",
+    "main.41c33733.js.map": "/static/js/main.41c33733.js.map"
   },
   "entrypoints": [
     "static/css/main.71201ee5.css",
