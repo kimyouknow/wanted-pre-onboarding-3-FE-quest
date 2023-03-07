@@ -1,15 +1,15 @@
 import { NavLink } from 'react-router-dom'
 
 import { gnbLinks } from '@/router/routerInfo'
+import authService from '@/service/auth.service'
 
 interface GlobalNavigationProps {
   className?: string
 }
 
-const isLogin = () => true
-
 const GlobalNavigation = ({ className }: GlobalNavigationProps) => {
-  const links = gnbLinks(isLogin())
+  const isLogin = authService.isLogin()
+  const links = gnbLinks(isLogin)
   return (
     <nav className={className}>
       <ul className="flex flex-col gap-4">
