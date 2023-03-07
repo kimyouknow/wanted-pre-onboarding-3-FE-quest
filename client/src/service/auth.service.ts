@@ -1,4 +1,4 @@
-import { emailRegex, passwordRegex } from '@/constants/service.constant'
+import { emailRegex, passwordRegex } from './service.constant'
 
 /**
  * 로그인: Inputs Object - input들의 key, value로 이뤄진 에러 객체
