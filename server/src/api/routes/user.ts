@@ -1,11 +1,10 @@
-import { authController } from '@src/api/controllers'
+import { userController } from '@src/api/controllers'
 import { Router } from 'express'
 
 const route = Router()
 
 export default (app: Router) => {
-  app.use('/auth', route)
+  app.use('/user', route)
 
-  route.get('/login', authController.login)
-  route.post('/signup', authController.signUp)
+  route.get('/', userController.getUsers)
 }
