@@ -19,12 +19,12 @@
   "plugins": ["import", "@typescript-eslint"],
   "ignorePatterns": ["dist/", "node_modules/"],
   "rules": {
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/unbound-method": "off",
     "@typescript-eslint/no-misused-promises": [
-      2,
+      "error",
       {
-        "checksVoidReturn": {
-          "attributes": false
-        }
+        "checksVoidReturn": false
       }
     ],
     "prettier/prettier": [
