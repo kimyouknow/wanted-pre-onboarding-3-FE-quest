@@ -15,13 +15,13 @@ beforeEach(() => {
   res = httpMock.createResponse()
 })
 
-describe('Product Controller Create', () => {
+describe('Auth Controller signup', () => {
   let newUser: IUser
   beforeEach(() => {
     newUser = createRandomUserInfo()
     req.body = newUser
   })
-  it('should have a createProduct function', () => {
+  it('should have a signUp function', () => {
     expect(typeof authController.signUp).toBe('function')
   })
   it('should call UserModel.create', async () => {

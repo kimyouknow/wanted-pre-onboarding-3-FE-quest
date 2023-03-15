@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker/locale/ko'
 
 export const createRandomUserInfo = () => ({
-  id: faker.datatype.uuid(),
+  email: faker.internet.email(),
   nickname: faker.name.fullName(),
 })
 

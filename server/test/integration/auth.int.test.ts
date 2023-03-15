@@ -26,15 +26,15 @@ const newUser = createRandomUserInfo()
 it('POST /api/auth/signup', async () => {
   const response = await request(app).post('/api/auth/signup').send(newUser)
   const { statusCode } = response
-  const { id, nickname } = response.body as IUser
+  const { email, nickname } = response.body as IUser
   expect(statusCode).toBe(201)
-  expect(id).toBe(newUser.id)
+  expect(email).toBe(newUser.email)
   expect(nickname).toBe(newUser.nickname)
 })
 
 it('should return 500 on POST /api/auth/signup', async () => {
-  const response = await request(app).post('/api/auth/signup').send({ id: 'no nickname' })
+  const response = await request(app).post('/api/auth/signup').send({ nickname: 'Fake Nickname' })
   expect(response.body).toStrictEqual({
-    message: 'User validation failed: nickname: Path `nickname` is required.',
+    message: 'User validation failed: email: Path `email` is required.',
   })
 })

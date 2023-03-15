@@ -15,7 +15,7 @@ beforeEach(() => {
   res = httpMock.createResponse()
 })
 
-describe('Product Controller Get', () => {
+describe('User Controller getUsers', () => {
   const allUsers = createRandomUserList(10)
   it('should have a getUsers function', () => {
     expect(typeof userController.getUsers).toBe('function')

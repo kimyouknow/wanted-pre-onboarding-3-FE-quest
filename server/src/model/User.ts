@@ -1,12 +1,12 @@
 import mongoose, { Schema } from 'mongoose'
 
 export interface IUser {
-  id: string
+  email: string
   nickname: string
 }
 
 const userSchema = new Schema<IUser>({
-  id: {
+  email: {
     type: String,
     required: true,
   },
