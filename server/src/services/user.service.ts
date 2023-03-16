@@ -13,9 +13,15 @@ const findUser = async (predicate: { email: string }) => {
   return existUser.length !== 0
 }
 
+const findAllUser = async () => {
+  const existAllUser = await UserModel.find({})
+  return existAllUser
+}
+
 const userService = {
   createUser,
   findUser,
+  findAllUser,
 }
 
 export default userService
