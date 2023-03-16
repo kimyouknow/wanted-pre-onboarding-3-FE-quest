@@ -74,7 +74,7 @@ describe('Auth Controller signup', () => {
     await authController.signUp(req, res, next)
     expect(mockCreateUser).toBeCalledWith({ email: testBody.email, password: testBody.password })
     expect(res.statusCode).toBe(StatusCodes.OK)
-    expect(res._getData()).toStrictEqual({ message: USER_SUCCESS.SIGN_UP, token: createToken(testBody.email) })
+    expect(res._getJSONData()).toStrictEqual({ message: USER_SUCCESS.SIGN_UP, token: createToken(testBody.email) })
   })
   it('should call the next function with an error if an error occurs during user creation', async () => {
     jest.spyOn(userService, 'findUser').mockResolvedValueOnce(false)
