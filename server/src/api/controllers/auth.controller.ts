@@ -49,10 +49,9 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
   }
 
   try {
-    const { email: createdEmail } = await userService.createUser({ email, password })
+    await userService.createUser({ email, password })
     return res.status(StatusCodes.OK).json({
       message: USER_SUCCESS.SIGN_UP,
-      token: createToken(createdEmail),
     })
   } catch (error) {
     next(error)

@@ -84,7 +84,7 @@ describe('Auth Controller : signUp', () => {
     expect(res._getData()).toStrictEqual(createError(USER_VALIDATION_ERRORS.EXIST_USER))
     expect(next).not.toHaveBeenCalled()
   })
-  it('should StatusCodes.OK create a new user and return a token', async () => {
+  it('should StatusCodes.OK create a new user and return a success message', async () => {
     const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue({ isValid: true })
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const mockFindUser = jest.spyOn(userService, 'findUser').mockResolvedValueOnce(null)
@@ -96,7 +96,7 @@ describe('Auth Controller : signUp', () => {
     expect(mockFindUser).toHaveBeenCalledWith({ email: testBody.email })
     expect(mockCreateUser).toBeCalledWith({ email: testBody.email, password: testBody.password })
     expect(res.statusCode).toBe(StatusCodes.OK)
-    expect(res._getJSONData()).toStrictEqual({ message: USER_SUCCESS.SIGN_UP, token: createToken(testBody.email) })
+    expect(res._getJSONData()).toStrictEqual({ message: USER_SUCCESS.SIGN_UP })
   })
   it('should call next with an error if createUser throws an error', async () => {
     const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue({ isValid: true })
