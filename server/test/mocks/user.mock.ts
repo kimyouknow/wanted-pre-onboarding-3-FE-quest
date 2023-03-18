@@ -14,4 +14,9 @@ export const createRandomUserInput = (): UserInput => ({
   password: faker.internet.password(),
 })
 
+export const mockSuccessUserInput = {
+  email: 'tester@tester.com',
+  password: 'abc123!@#',
+}
+
 export const createRandomUserList = (length: number) => Array.from({ length }, () => createRandomUser())

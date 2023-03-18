@@ -6,21 +6,45 @@ import { createError } from '@src/utils/responseUtils'
 import { NextFunction, Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 
-export const login = () => {
-  console.log('login')
+export const login = async (req: Request, res: Response, next: NextFunction) => {
+  const { email, password } = req.body as UserInput
+  const { isValid, message } = authService.authValidator({ email, password })
+
+  if (!isValid) {
+    return res.status(StatusCodes.BAD_REQUEST).json(createError(message))
+  }
+
+  try {
+    const targetUser = await userService.findUser({ email, password })
+
+    if (targetUser) {
+      return res.status(StatusCodes.OK).json({
+        message: USER_SUCCESS.LOGIN,
+        token: createToken(targetUser.email),
+      })
+    }
+
+    return res.status(StatusCodes.BAD_REQUEST).json(createError(USER_VALIDATION_ERRORS.USER_NOT_FOUND))
+  } catch (error) {
+    next(error)
+  }
 }
 
 export const signUp = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body as UserInput
   const { isValid, message } = authService.authValidator({ email, password })
   if (!isValid) {
-    return res.status(StatusCodes.BAD_REQUEST).send(createError(message))
+    return res.status(StatusCodes.BAD_REQUEST).json(createError(message))
   }
 
-  const existUser = await userService.findUser({ email: email })
+  try {
+    const existUser = await userService.findUser({ email: email })
 
-  if (existUser) {
-    return res.status(StatusCodes.CONFLICT).send(createError(USER_VALIDATION_ERRORS.EXIST_USER))
+    if (existUser) {
+      return res.status(StatusCodes.CONFLICT).json(createError(USER_VALIDATION_ERRORS.EXIST_USER))
+    }
+  } catch (error) {
+    next(error)
   }
 
   try {

@@ -136,13 +136,62 @@ describe('Auth controller: login', () => {
       isValid: false,
       message: USER_VALIDATION_ERRORS.EMPTY_FORM,
     }
-    jest.spyOn(authService, 'authValidator').mockReturnValue(errorReturn)
+    const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue(errorReturn)
 
     await authController.login(req, res, next)
 
-    expect(authService.authValidator).toHaveBeenCalledWith(testBody)
+    expect(mockAuthValidator).toHaveBeenCalledWith(testBody)
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)
     expect(res._getData()).toStrictEqual(createError(errorReturn.message))
     expect(next).not.toHaveBeenCalled()
+  })
+  it('should return a INVALID_EMAIL response If the email validate condition is not met', async () => {
+    const errorReturn = {
+      isValid: false,
+      message: USER_VALIDATION_ERRORS.INVALID_EMAIL,
+    }
+    const inValidInput = { ...testBody, email: 'asdf' }
+    req.body = inValidInput
+    const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue(errorReturn)
+
+    await authController.login(req, res, next)
+
+    expect(mockAuthValidator).toHaveBeenCalledWith(inValidInput)
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)
+    expect(res._getData()).toStrictEqual(createError(errorReturn.message))
+    expect(next).not.toHaveBeenCalled()
+  })
+  it('should return a INVALID_EMAIL response If the password validate condition is not met', async () => {
+    const errorReturn = {
+      isValid: false,
+      message: USER_VALIDATION_ERRORS.INVALID_PASSWORD,
+    }
+    const inValidInput = { ...testBody, email: 'asdf' }
+    req.body = inValidInput
+    const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue(errorReturn)
+
+    await authController.login(req, res, next)
+
+    expect(mockAuthValidator).toHaveBeenCalledWith(inValidInput)
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)
+    expect(res._getData()).toStrictEqual(createError(errorReturn.message))
+    expect(next).not.toHaveBeenCalled()
+  })
+
+  it('should StatusCodes.OK and return a token if the user is found ', async () => {
+    const expectedUser = createRandomUser()
+    const expectedToken = createToken(expectedUser.email)
+    const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue({ isValid: true })
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const mockFindUser = jest.spyOn(userService, 'findUser').mockResolvedValueOnce(expectedUser as any)
+
+    await authController.login(req, res, next)
+
+    expect(next).not.toHaveBeenCalled()
+
+    expect(mockAuthValidator).toHaveBeenCalledWith(testBody)
+    expect(mockFindUser).toHaveBeenCalledWith({ email: testBody.email, password: testBody.password })
+    expect(res.statusCode).toBe(StatusCodes.OK)
+    expect(res._getJSONData()).toStrictEqual({ message: USER_SUCCESS.LOGIN, token: expectedToken })
   })
 })
