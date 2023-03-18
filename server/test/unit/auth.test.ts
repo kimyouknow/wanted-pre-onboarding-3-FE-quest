@@ -30,11 +30,10 @@ describe('Auth Controller : signUp', () => {
       isValid: false,
       message: USER_VALIDATION_ERRORS.EMPTY_FORM,
     }
-    jest.spyOn(authService, 'authValidator').mockReturnValue(errorReturn)
+    const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue(errorReturn)
 
     await authController.signUp(req, res, next)
-
-    expect(authService.authValidator).toHaveBeenCalledWith(testBody)
+    expect(mockAuthValidator).toHaveBeenCalledWith(testBody)
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)
     expect(res._getData()).toStrictEqual(createError(errorReturn.message))
     expect(next).not.toHaveBeenCalled()
@@ -46,11 +45,11 @@ describe('Auth Controller : signUp', () => {
     }
     const inValidInput = { ...testBody, email: 'asdf' }
     req.body = inValidInput
-    jest.spyOn(authService, 'authValidator').mockReturnValue(errorReturn)
+    const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue(errorReturn)
 
     await authController.signUp(req, res, next)
 
-    expect(authService.authValidator).toHaveBeenCalledWith(inValidInput)
+    expect(mockAuthValidator).toHaveBeenCalledWith(inValidInput)
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)
     expect(res._getData()).toStrictEqual(createError(errorReturn.message))
     expect(next).not.toHaveBeenCalled()
@@ -62,11 +61,11 @@ describe('Auth Controller : signUp', () => {
     }
     const inValidInput = { ...testBody, email: 'asdf' }
     req.body = inValidInput
-    jest.spyOn(authService, 'authValidator').mockReturnValue(errorReturn)
+    const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue(errorReturn)
 
     await authController.signUp(req, res, next)
 
-    expect(authService.authValidator).toHaveBeenCalledWith(inValidInput)
+    expect(mockAuthValidator).toHaveBeenCalledWith(inValidInput)
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)
     expect(res._getData()).toStrictEqual(createError(errorReturn.message))
     expect(next).not.toHaveBeenCalled()
