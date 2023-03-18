@@ -35,7 +35,7 @@ describe('Auth Controller : signUp', () => {
     await authController.signUp(req, res, next)
     expect(mockAuthValidator).toHaveBeenCalledWith(testBody)
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)
-    expect(res._getData()).toStrictEqual(createError(errorReturn.message))
+    expect(res._getJSONData()).toStrictEqual(createError(errorReturn.message))
     expect(next).not.toHaveBeenCalled()
   })
   it('should return a INVALID_EMAIL response If the email validate condition is not met', async () => {
@@ -180,7 +180,7 @@ describe('Auth controller: login', () => {
 
   it('should StatusCodes.OK and return a token if the user is found ', async () => {
     const expectedUser = createRandomUser()
-    const expectedToken = createToken(expectedUser.email)
+    const expectedToken = createToken({ email: expectedUser.email, _id: expectedUser._id })
     const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue({ isValid: true })
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const mockFindUser = jest.spyOn(userService, 'findUser').mockResolvedValueOnce(expectedUser as any)

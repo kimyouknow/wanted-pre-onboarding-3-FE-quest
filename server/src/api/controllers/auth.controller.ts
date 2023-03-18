@@ -18,9 +18,10 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     const targetUser = await userService.findUser({ email, password })
 
     if (targetUser) {
+      const { email, _id } = targetUser
       return res.status(StatusCodes.OK).json({
         message: USER_SUCCESS.LOGIN,
-        token: createToken(targetUser.email),
+        token: createToken({ email, _id }),
       })
     }
 

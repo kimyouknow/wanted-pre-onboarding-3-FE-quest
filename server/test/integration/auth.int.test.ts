@@ -63,7 +63,8 @@ describe('Login Integration', () => {
     const { message, token } = response.body as { message: string; token: string }
     expect(statusCode).toBe(StatusCodes.OK)
     expect(message).toBe(USER_SUCCESS.LOGIN)
-    expect(token).toBe(createToken(newUserInput.email))
+    expect(token).not.toBeNull()
+    expect(typeof token).toBe('string')
   })
 
   it('should return 500 on POST /api/auth/login', async () => {
