@@ -3,7 +3,7 @@ import authService, { USER_SUCCESS, USER_VALIDATION_ERRORS } from '@src/services
 import userService from '@src/services/user.service'
 import { createToken } from '@src/utils/authorizeUtils'
 import { createError } from '@src/utils/responseUtils'
-import { createRandomUserInput } from '@test/mocks/user.mock'
+import { createRandomUser, createRandomUserInput } from '@test/mocks/user.mock'
 import { NextFunction } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import httpMock from 'node-mocks-http'
@@ -74,7 +74,8 @@ describe('Auth Controller : signUp', () => {
 
   it('should return a 409 error if the user already exists', async () => {
     const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue({ isValid: true })
-    const mockFindUser = jest.spyOn(userService, 'findUser').mockResolvedValueOnce(true)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const mockFindUser = jest.spyOn(userService, 'findUser').mockResolvedValueOnce(createRandomUser() as any)
 
     await authController.signUp(req, res, next)
 
@@ -86,7 +87,8 @@ describe('Auth Controller : signUp', () => {
   })
   it('should StatusCodes.OK create a new user and return a token', async () => {
     const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue({ isValid: true })
-    const mockFindUser = jest.spyOn(userService, 'findUser').mockResolvedValueOnce(false)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const mockFindUser = jest.spyOn(userService, 'findUser').mockResolvedValueOnce(null)
     const mockCreateUser = jest.spyOn(userService, 'createUser').mockResolvedValueOnce({ email: testBody.email })
 
     await authController.signUp(req, res, next)
@@ -99,7 +101,8 @@ describe('Auth Controller : signUp', () => {
   })
   it('should call next with an error if createUser throws an error', async () => {
     const mockAuthValidator = jest.spyOn(authService, 'authValidator').mockReturnValue({ isValid: true })
-    const mockFindUser = jest.spyOn(userService, 'findUser').mockResolvedValueOnce(false)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const mockFindUser = jest.spyOn(userService, 'findUser').mockResolvedValueOnce(null)
     const mockCreateUser = jest.spyOn(userService, 'createUser').mockRejectedValueOnce(new Error('Database error'))
 
     await authController.signUp(req, res, next)

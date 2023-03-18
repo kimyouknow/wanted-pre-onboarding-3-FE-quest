@@ -9,8 +9,8 @@ const createUser = async ({ email, password }: Pick<User, 'email' | 'password'>)
 }
 
 const findUser = async (predicate: { email: string }) => {
-  const existUser = await UserModel.find(predicate)
-  return existUser.length !== 0
+  const existUser = await UserModel.findOne(predicate)
+  return existUser
 }
 
 const findAllUser = async () => {
