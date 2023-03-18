@@ -22,7 +22,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build -b deploy",
-    "start": "craco start",
+    "start": "PUBLIC_URL=/ craco start ",
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
