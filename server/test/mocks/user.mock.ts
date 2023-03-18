@@ -3,7 +3,7 @@ import { User, UserInput } from '@src/types/users.type'
 import mongoose from 'mongoose'
 
 export const createRandomUser = (): User => ({
-  _id: new mongoose.Types.ObjectId(),
+  _id: new mongoose.Types.ObjectId().toString(),
   email: faker.internet.email(),
   password: faker.internet.password(),
   createdAt: faker.date.future().toISOString(),
