@@ -51,7 +51,7 @@ describe('Auth Controller : signUp', () => {
 
     expect(mockAuthValidator).toHaveBeenCalledWith(inValidInput)
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)
-    expect(res._getData()).toStrictEqual(createError(errorReturn.message))
+    expect(res._getJSONData()).toStrictEqual(createError(errorReturn.message))
     expect(next).not.toHaveBeenCalled()
   })
   it('should return a INVALID_EMAIL response If the password validate condition is not met', async () => {
@@ -67,7 +67,7 @@ describe('Auth Controller : signUp', () => {
 
     expect(mockAuthValidator).toHaveBeenCalledWith(inValidInput)
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)
-    expect(res._getData()).toStrictEqual(createError(errorReturn.message))
+    expect(res._getJSONData()).toStrictEqual(createError(errorReturn.message))
     expect(next).not.toHaveBeenCalled()
   })
 
@@ -81,7 +81,7 @@ describe('Auth Controller : signUp', () => {
     expect(mockAuthValidator).toHaveBeenCalledWith(testBody)
     expect(mockFindUser).toHaveBeenCalledWith({ email: testBody.email })
     expect(res.statusCode).toBe(StatusCodes.CONFLICT)
-    expect(res._getData()).toStrictEqual(createError(USER_VALIDATION_ERRORS.EXIST_USER))
+    expect(res._getJSONData()).toStrictEqual(createError(USER_VALIDATION_ERRORS.EXIST_USER))
     expect(next).not.toHaveBeenCalled()
   })
   it('should StatusCodes.OK create a new user and return a success message', async () => {
@@ -142,7 +142,7 @@ describe('Auth controller: login', () => {
 
     expect(mockAuthValidator).toHaveBeenCalledWith(testBody)
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)
-    expect(res._getData()).toStrictEqual(createError(errorReturn.message))
+    expect(res._getJSONData()).toStrictEqual(createError(errorReturn.message))
     expect(next).not.toHaveBeenCalled()
   })
   it('should return a INVALID_EMAIL response If the email validate condition is not met', async () => {
@@ -158,7 +158,7 @@ describe('Auth controller: login', () => {
 
     expect(mockAuthValidator).toHaveBeenCalledWith(inValidInput)
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)
-    expect(res._getData()).toStrictEqual(createError(errorReturn.message))
+    expect(res._getJSONData()).toStrictEqual(createError(errorReturn.message))
     expect(next).not.toHaveBeenCalled()
   })
   it('should return a INVALID_EMAIL response If the password validate condition is not met', async () => {
@@ -174,7 +174,7 @@ describe('Auth controller: login', () => {
 
     expect(mockAuthValidator).toHaveBeenCalledWith(inValidInput)
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)
-    expect(res._getData()).toStrictEqual(createError(errorReturn.message))
+    expect(res._getJSONData()).toStrictEqual(createError(errorReturn.message))
     expect(next).not.toHaveBeenCalled()
   })
 
