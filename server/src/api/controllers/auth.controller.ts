@@ -12,7 +12,7 @@ export const login = () => {
 
 export const signUp = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body as UserInput
-  const { isValid, message } = authService.loginValidator({ email, password })
+  const { isValid, message } = authService.authValidator({ email, password })
   if (!isValid) {
     return res.status(StatusCodes.BAD_REQUEST).send(createError(message))
   }

@@ -1,6 +1,6 @@
 import validator from 'validator'
 
-const loginValidator = (loginForm: { email: string; password: string }) => {
+const authValidator = (loginForm: { email: string; password: string }) => {
   if (Object.values(loginForm).some(v => !v)) {
     return {
       isValid: false,
@@ -26,7 +26,7 @@ const loginValidator = (loginForm: { email: string; password: string }) => {
 }
 
 const authService = {
-  loginValidator,
+  authValidator,
 }
 
 export default authService
