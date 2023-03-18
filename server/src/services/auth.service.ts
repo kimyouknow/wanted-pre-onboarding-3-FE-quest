@@ -41,4 +41,5 @@ export const USER_VALIDATION_ERRORS = {
 
 export const USER_SUCCESS = {
   SIGN_UP: '계정이 성공적으로 생성되었습니다.',
+  LOGIN: '성공적으로 로그인 했습니다.',
 }
