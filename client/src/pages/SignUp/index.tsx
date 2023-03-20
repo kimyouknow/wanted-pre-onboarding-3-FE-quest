@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 
+import authApi from '@/api/authApi'
 import Button from '@/components/Button'
 import TextInput from '@/components/TextInput'
 import useForm from '@/hooks/useForm'
 import { ROUTE } from '@/router/routerInfo'
-import authService from '@/service/auth.service'
 import { loginValidate, LoginValidateProps } from '@/service/auth.validation'
 
 const SignUp = () => {
@@ -15,11 +15,16 @@ const SignUp = () => {
   }
 
   const submitCallback = async ({ email, password }: LoginValidateProps) => {
-    await new Promise(res => setTimeout(res, 1000))
-    alert('회원가입 성공~')
-    // TODO: 상태관리 및 로그인 서비스 함수로 리팩토링
-    authService.saveToken(email)
-    navigate(ROUTE.HOME)
+    try {
+      const response = await authApi.signUp(email, password)
+      // FIXME: axios response typing
+      const { message } = response.data as { message: string }
+      alert(message)
+      // TODO: 상태관리 및 로그인 서비스 함수로 리팩토링
+      navigate(ROUTE.LOGIN)
+    } catch (error) {
+      alert(error)
+    }
   }
   const { inputValues, validateError, onChangeHandler, submitHandler, satisfyAllValidates } = useForm({
     initialValues: { email: '', password: '' },
