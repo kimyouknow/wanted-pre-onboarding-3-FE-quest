@@ -1,4 +1,4 @@
-import { emailRegex } from './service.constant'
+import { emailRegex } from '@/constants/service.constant'
 
 /**
  * 로그인: Inputs Object - input들의 key, value로 이뤄진 에러 객체
@@ -39,5 +39,6 @@ export const loginValidate = ({ email, password }: LoginValidateProps): LoginVal
   } else if (password.length < 8 || password.length > 20) {
     validateErrors.password = '비빌번호는 8자 이상 20자 이하이어야 합니다. '
   }
+
   return validateErrors
 }
